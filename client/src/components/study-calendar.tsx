@@ -60,24 +60,29 @@ export default function StudyCalendar({ tasks, sessions, darkMode, setTasks }: S
   useEffect(() => {
     if (!calendarRef.current) return;
     
-    // Define FullCalendar plugins if not available
-    if (!window.FullCalendar) {
-      console.log("Creating mock FullCalendar instance");
-      // Create mock FullCalendar to prevent errors
-      window.FullCalendar = {
-        Calendar: function() {
-          return {
-            render: function() {},
-            destroy: function() {}
-          };
-        }
-      };
-    }
-    
     try {
-      // Create calendar instance
-      const calendar = new window.FullCalendar.Calendar(calendarRef.current, {
-        plugins: [window.FullCalendar.dayGridPlugin, window.FullCalendar.interactionPlugin],
+      // Access FullCalendar instance from global scope
+      const globalWindow = window as any;
+      if (!globalWindow.FullCalendar) {
+        console.error("FullCalendar library not loaded. Using alternative view.");
+        setCalendarLoaded(false);
+        return;
+      }
+      
+      const FullCalendar = globalWindow.FullCalendar;
+      
+      // Create plugins array based on available plugins
+      const plugins = [];
+      if (FullCalendar.dayGridPlugin || FullCalendar.DayGridPlugin) {
+        plugins.push(FullCalendar.dayGridPlugin || FullCalendar.DayGridPlugin);
+      }
+      if (FullCalendar.interactionPlugin || FullCalendar.InteractionPlugin) {
+        plugins.push(FullCalendar.interactionPlugin || FullCalendar.InteractionPlugin);
+      }
+      
+      // Initialize calendar with available configuration
+      const calendar = new FullCalendar.Calendar(calendarRef.current, {
+        plugins,
         initialView: 'dayGridMonth',
         headerToolbar: {
           left: 'prev,next today',
@@ -140,6 +145,7 @@ export default function StudyCalendar({ tasks, sessions, darkMode, setTasks }: S
       };
     } catch (error) {
       console.error("Error initializing FullCalendar:", error);
+      setCalendarLoaded(false);
     }
   }, []);
   
