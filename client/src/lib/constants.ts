@@ -1,114 +1,148 @@
 export const motivationalQuotes = [
-  "The secret of getting ahead is getting started. – Mark Twain",
-  "You don't have to be great to start, but you have to start to be great. – Zig Ziglar",
-  "Success is the sum of small efforts, repeated day in and day out. – Robert Collier",
-  "The only way to do great work is to love what you do. – Steve Jobs",
-  "Focus on being productive instead of busy. – Tim Ferriss",
-  "Don't watch the clock; do what it does. Keep going. – Sam Levenson",
-  "The future depends on what you do today. – Mahatma Gandhi",
-  "It always seems impossible until it's done. – Nelson Mandela",
-  "Your time is limited, don't waste it living someone else's life. – Steve Jobs",
-  "The best way to predict the future is to create it. – Abraham Lincoln",
+  "The secret of getting ahead is getting started.",
+  "Don't watch the clock; do what it does. Keep going.",
+  "The harder you work for something, the greater you'll feel when you achieve it.",
+  "Success is the sum of small efforts, repeated day in and day out.",
+  "The only way to do great work is to love what you do.",
+  "Believe you can and you're halfway there.",
+  "It always seems impossible until it's done.",
+  "You don't have to be great to start, but you have to start to be great.",
+  "The expert in anything was once a beginner.",
+  "Dreams don't work unless you do.",
+  "Your limitation—it's only your imagination.",
+  "Push yourself, because no one else is going to do it for you.",
+  "Great things never come from comfort zones.",
+  "The best way to predict the future is to create it.",
+  "The only place where success comes before work is in the dictionary.",
+  "If you're going through hell, keep going.",
+  "Hard work beats talent when talent doesn't work hard.",
+  "You are never too old to set another goal or to dream a new dream.",
+  "Never give up on a dream just because of the time it will take to accomplish it.",
+  "Success is not final, failure is not fatal: it is the courage to continue that counts."
 ];
 
 export const soundOptions = {
-  alarm: 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg',
-  chime: 'https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg',
-  bell: 'https://actions.google.com/sounds/v1/alarms/bell_ringing_04.ogg',
+  "bell": "🔔 Bell",
+  "chime": "🎐 Chime",
+  "digital": "📱 Digital Alert",
+  "notification": "💬 Notification",
+  "custom": "🎵 Custom Sound"
 };
 
 export const ambientOptions = {
-  rain: 'https://actions.google.com/sounds/v1/weather/rain_light_loop.ogg',
-  coffee: 'https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg',
-  whiteNoise: 'https://actions.google.com/sounds/v1/ambiences/white_noise.ogg',
-  forest: 'https://actions.google.com/sounds/v1/ambiences/forest_ambience.ogg',
-  ocean: 'https://actions.google.com/sounds/v1/water/ocean_shore.ogg',
+  "rain": "🌧️ Rainfall",
+  "forest": "🌳 Forest Ambience",
+  "coffee": "☕ Coffee Shop",
+  "white": "🌊 White Noise",
+  "brown": "🌫️ Brown Noise",
+  "none": "🔇 None"
 };
 
 export const priorityColors = {
-  High: {
-    bg: 'bg-red-100 dark:bg-red-900',
-    text: 'text-red-800 dark:text-red-200',
-    border: 'border-red-300 dark:border-red-700',
-  },
-  Medium: {
-    bg: 'bg-yellow-100 dark:bg-yellow-900',
-    text: 'text-yellow-800 dark:text-yellow-200',
-    border: 'border-yellow-300 dark:border-yellow-700',
-  },
-  Low: {
-    bg: 'bg-green-100 dark:bg-green-900',
-    text: 'text-green-800 dark:text-green-200',
-    border: 'border-green-300 dark:border-green-700',
-  },
+  "High": "#EF4444",
+  "Medium": "#F59E0B",
+  "Low": "#3B82F6"
 };
 
 export const defaultAppSettings = {
-  theme: 'light' as const,
+  theme: 'light',
   fontSize: 16,
   blockedSites: [],
-  customCategories: ['Study', 'Work', 'Personal', 'Exercise', 'Reading'],
+  customCategories: ['Math', 'Science', 'Language', 'History', 'Computer Science'],
   notificationsPermission: false,
+  
+  // Focus mode settings
+  focusBackground: 'none',
+  showFocusModeTips: true,
+  fullscreenFocusMode: false,
+  restrictNavigation: false,
+  
+  // Notification settings
+  pomodoroNotifications: true,
+  taskNotifications: true,
+  
+  // Pomodoro settings
+  autoStartBreaks: true,
+  autoStartWork: false,
+  customLongBreakInterval: false,
+  longBreakInterval: 4,
+  pomodoroDefaults: {
+    work: 25,
+    shortBreak: 5,
+    longBreak: 15
+  },
+  
+  // Data settings
+  autoBackupInterval: 5,
+  analyticsOptOut: false
 };
 
 export const themeOptions = {
-  light: {
+  'light': {
     name: 'Light',
-    icon: '☀️',
-    className: 'light'
+    icon: '☀️'
   },
-  dark: {
+  'dark': {
     name: 'Dark',
-    icon: '🌙',
-    className: 'dark'
+    icon: '🌙'
   },
-  blue: {
-    name: 'Blue',
-    icon: '🔵',
-    className: 'blue'
+  'blue': {
+    name: 'Ocean',
+    icon: '🌊'
   },
-  green: {
-    name: 'Green',
-    icon: '🟢',
-    className: 'green'
+  'green': {
+    name: 'Forest',
+    icon: '🌲'
   }
 };
 
 export const studyResources = [
-  { 
-    name: 'Notion',
-    description: 'All-in-one workspace for notes, tasks, wikis, and databases',
-    url: 'https://www.notion.so/',
-    icon: '📝'
+  {
+    title: "Effective Study Techniques",
+    description: "Learn methods like spaced repetition, active recall, and the Pomodoro technique.",
+    icon: "📚",
+    link: "https://www.coursera.org/articles/study-techniques"
   },
-  { 
-    name: 'Quizlet',
-    description: 'Flashcards and study tools for effective learning',
-    url: 'https://quizlet.com/',
-    icon: '🔄'
+  {
+    title: "Memory Enhancement",
+    description: "Techniques to improve memory retention and recall for better learning outcomes.",
+    icon: "🧠",
+    link: "https://www.health.harvard.edu/mind-and-mood/7-ways-to-keep-your-memory-sharp-at-any-age"
   },
-  { 
-    name: 'Khan Academy',
-    description: 'Free courses across various subjects',
-    url: 'https://www.khanacademy.org/',
-    icon: '🎓'
+  {
+    title: "Focus & Concentration",
+    description: "Methods to improve attention span and reduce distractions.",
+    icon: "🎯",
+    link: "https://www.verywellmind.com/how-to-improve-your-concentration-4584922"
   },
-  { 
-    name: 'Crash Course',
-    description: 'Educational YouTube series',
-    url: 'https://www.youtube.com/c/crashcourse',
-    icon: '📚'
+  {
+    title: "Note-Taking Strategies",
+    description: "Effective ways to take and organize notes for better understanding and recall.",
+    icon: "📝",
+    link: "https://learningcenter.unc.edu/tips-and-tools/effective-note-taking-in-class/"
   },
-  { 
-    name: 'CS50',
-    description: 'Harvard\'s introduction to computer science',
-    url: 'https://cs50.harvard.edu/x/',
-    icon: '💻'
+  {
+    title: "Time Management",
+    description: "Frameworks for managing your study time efficiently.",
+    icon: "⏰",
+    link: "https://www.mindtools.com/pages/article/newHTE_00.htm"
   },
-  { 
-    name: 'Coursera',
-    description: 'Online courses from top universities',
-    url: 'https://www.coursera.org/',
-    icon: '🌐'
+  {
+    title: "Academic Journals & Research",
+    description: "Access to scholarly articles and research papers.",
+    icon: "🔎",
+    link: "https://scholar.google.com/"
   },
+  {
+    title: "Subject-Specific Resources",
+    description: "Curated resources for different academic disciplines.",
+    icon: "📖",
+    link: "https://www.khanacademy.org/"
+  },
+  {
+    title: "Study Group Formation",
+    description: "Tips for forming and managing effective study groups.",
+    icon: "👥",
+    link: "https://www.thoughtco.com/how-to-form-a-study-group-3212069"
+  }
 ];
