@@ -1,0 +1,197 @@
+1. General Features
+Responsive Design: Adapts to various screen sizes (mobile, tablet, desktop) for a seamless experience.
+Focus Mode: Toggles a distraction-free view, hiding the dashboard and tabs to focus on the active component.
+Theme Customization: Supports multiple themes (light, dark, blue, green) with dynamic class application to the body.
+Font Size Adjustment: Adjustable font size (12px to 24px) via a slider in Settings.
+Error Boundary: Catches runtime errors in components, displaying a user-friendly error message instead of crashing.
+Local Storage with Versioning: Persists data (tasks, sessions, settings, etc.) in localStorage with a version check to prevent data corruption.
+Progress Dashboard (non-Focus Mode):
+Displays total study time across all work sessions.
+Shows completed tasks vs. total tasks.
+Calculates and displays task completion percentage.
+Tab Navigation: 10 tabs (Pomodoro, Stopwatch, Timer, Calendar, Tasks, Analytics, Notes, Resources, Goals, Settings) with animated buttons (hover and tap effects via Framer Motion).
+Accessibility:
+ARIA labels for buttons, inputs, and headings to support screen readers.
+Semantic HTML structure for better navigation.
+2. Pomodoro Timer
+Customizable Session Durations:
+Work session (default: 25 minutes, adjustable 1–120 minutes).
+Short break (default: 5 minutes, adjustable 1–120 minutes).
+Long break (default: 15 minutes, adjustable 1–120 minutes).
+Session Management:
+Cycles through Work → Short Break → Work → Long Break (every 4th break).
+Tracks completed work sessions and long break counter.
+Timer Controls:
+Start/Pause toggle.
+Reset to initial work session state.
+Task Integration:
+Select a task to associate with the session.
+Increments session count for the selected task upon work session completion.
+Opens YouTube playlist (if linked to the task) via a button.
+Notifications:
+Browser notifications when a session ends (if permission granted).
+Optional audio alerts with selectable sounds (alarm, chime, bell, or custom uploaded audio).
+Ambient Sounds:
+Options: rain, coffee shop, white noise.
+Adjustable volume slider (0–1).
+Plays during work sessions, pauses when timer is paused.
+Visual Feedback:
+Displays current session type (Work, Break, Long Break).
+Shows time remaining in HH:MM:SS format.
+Progress bar reflects session completion percentage.
+Displays motivational quotes during breaks.
+Settings Modal:
+Adjust work, short break, and long break durations.
+Validation ensures durations are 1–120 minutes.
+Dark Mode Toggle: Per-component dark mode with distinct styling.
+Sound Toggle: Enable/disable audio notifications.
+Session Persistence:
+Saves settings, completed sessions, dark mode, and sound preferences to localStorage.
+Error Handling:
+Fallback for missing Framer Motion (renders static components).
+Safe localStorage access with error logging.
+3. Stopwatch
+Basic Stopwatch:
+Tracks elapsed time in seconds, displayed in HH:MM:SS format.
+Start/Pause toggle.
+Reset to zero.
+Visual Feedback:
+Large, readable time display.
+Simple, distraction-free interface.
+Animation:
+Framer Motion for smooth component entry (fade and slide).
+4. Timer
+Custom Timer:
+Input time in HH:MM:SS format (up to 99 hours).
+Start button to begin countdown.
+Reset to clear input and time.
+Validation:
+Ensures input matches HH:MM:SS format.
+Validates hours (<100), minutes (<60), seconds (<60).
+Requires time > 0.
+Displays error messages for invalid inputs.
+Notifications:
+Browser notification when timer reaches zero (if permission granted).
+Visual Feedback:
+Displays time remaining in HH:MM:SS format.
+Error messages for invalid input.
+Animation:
+Framer Motion for smooth component entry.
+5. Calendar
+FullCalendar Integration:
+Displays tasks as events in a month or week view.
+Uses local FullCalendar core, daygrid, and interaction plugins.
+Event Management:
+Click a date to add a task with title, category, and optional YouTube playlist URL.
+Drag events to reschedule tasks.
+Events color-coded: green for completed, blue for incomplete.
+Displays playlist indicator (▶) for tasks with URLs.
+Navigation:
+Previous/next month buttons.
+Today button to jump to current date.
+Toggle between month and week views.
+Fallback UI:
+Displays error message if FullCalendar plugins fail to load, guiding users to check lib/ directory.
+Error Handling:
+Logs FullCalendar initialization errors.
+Checks for plugin availability before rendering.
+Animation:
+Framer Motion for component entry.
+6. Tasks
+Task Management:
+Add tasks with title, category, priority (Low, Medium, High), and optional YouTube playlist URL.
+Toggle task completion with checkbox.
+Delete tasks.
+Update task priority via dropdown.
+Update playlist URL with validation (must include youtube.com/playlist?list=).
+Sorting:
+Sort tasks by date, priority (High > Medium > Low), or category (alphabetical).
+Visual Feedback:
+Completion progress bar showing percentage of completed tasks.
+Priority-based border colors (red for High, yellow for Medium, green for Low).
+Strikethrough for completed tasks.
+Pulse animation for completed tasks.
+Displays task details (date, category, playlist link).
+Validation:
+Ensures non-empty task titles.
+Validates YouTube playlist URLs.
+Animation:
+Framer Motion for task list items (fade-in on add).
+Persistence:
+Saves tasks to localStorage.
+7. Analytics
+Session Tracking:
+Records work sessions with type (Work), duration, and date.
+Statistics:
+Total work time across all sessions.
+Number of completed work sessions.
+Chart Visualization:
+Line chart of work sessions per day (using Chart.js).
+Responsive design with labeled axes (Date, Sessions).
+Fallback message if Chart.js is missing or no sessions exist.
+Export:
+Downloads session data as a CSV file (study_stats.csv).
+Error Handling:
+Destroys previous chart instance to prevent memory leaks.
+Logs chart initialization errors.
+Animation:
+Framer Motion for component entry.
+8. Notes
+Markdown Support:
+Textarea for free-form notes (interpreted as Markdown).
+Import/Export:
+Export notes as a Markdown file (study_notes.md).
+Import notes from .md or .txt files.
+Validation:
+Restricts imports to text-based files.
+Persistence:
+Saves notes to localStorage.
+Animation:
+Framer Motion for component entry.
+9. Resources
+Curated Links:
+Notion: All-in-one workspace.
+Quizlet: Flashcards and study tools.
+Khan Academy: Free online courses.
+Crash Course: Educational YouTube playlist.
+CS50 Lectures: Harvard’s Intro to Computer Science playlist.
+External Navigation:
+Opens links in new tabs with rel="noopener noreferrer".
+Animation:
+Framer Motion for component entry.
+10. Goals
+Goal Management:
+Add goals with title and duration (days, minimum 1).
+Toggle goal completion with checkbox.
+Delete goals.
+Visual Feedback:
+Strikethrough and pulse animation for completed goals.
+Displays goal duration.
+Validation:
+Ensures non-empty goal titles.
+Requires duration ≥ 1 day.
+Persistence:
+Saves goals to localStorage.
+Animation:
+Framer Motion for goal list items (fade-in on add).
+11. Settings
+Theme Selection:
+Choose from light, dark, blue, or green themes.
+Font Size:
+Adjust via slider (12–24px).
+Notifications:
+Button to request browser notification permission.
+Blocked Sites (Focus Mode):
+Add/remove website URLs to a blocklist (note: requires a browser extension for actual blocking).
+Validates non-empty and unique URLs.
+Custom Categories:
+Add/remove custom task categories (e.g., Math, Science).
+Validates non-empty and unique categories.
+Data Management:
+Export all app data (tasks, settings, notes, goals, sessions, etc.) as a JSON file.
+Import data from a JSON file, with validation for correct format.
+Auto-exports data every 5 minutes.
+Persistence:
+Saves theme, font size, blocked sites, and categories to localStorage.
+Animation:
+Framer Motion for component entry.
