@@ -38,6 +38,31 @@ export interface AppSettings {
   blockedSites: string[];
   customCategories: string[];
   notificationsPermission: boolean;
+  
+  // Focus mode settings
+  focusBackground?: string;
+  showFocusModeTips?: boolean;
+  fullscreenFocusMode?: boolean;
+  restrictNavigation?: boolean;
+  
+  // Notification settings
+  pomodoroNotifications?: boolean;
+  taskNotifications?: boolean;
+  
+  // Pomodoro settings
+  autoStartBreaks?: boolean;
+  autoStartWork?: boolean;
+  customLongBreakInterval?: boolean;
+  longBreakInterval?: number;
+  pomodoroDefaults?: {
+    work: number;
+    shortBreak: number;
+    longBreak: number;
+  };
+  
+  // Data settings
+  autoBackupInterval?: number;
+  analyticsOptOut?: boolean;
 }
 
 export interface Note {

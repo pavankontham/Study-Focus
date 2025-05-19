@@ -1,79 +1,116 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { motivationalQuotes } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { XCircle, Mountain } from "lucide-react";
 
 interface FocusModeOverlayProps {
-  showOverlay: boolean;
+  show: boolean;
   onClose: () => void;
   darkMode: boolean;
+  backgroundStyle?: string;
+  duration?: number; // Duration in seconds before auto-closing
 }
 
-export default function FocusModeOverlay({ showOverlay, onClose, darkMode }: FocusModeOverlayProps) {
+export default function FocusModeOverlay({ 
+  show, 
+  onClose, 
+  darkMode, 
+  backgroundStyle = "none",
+  duration = 5
+}: FocusModeOverlayProps) {
   const [quote, setQuote] = useState("");
-  const [timer, setTimer] = useState(5);
+  const [countdown, setCountdown] = useState(duration);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (showOverlay) {
+    if (show) {
       // Set a random motivational quote
       setQuote(motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]);
       
-      // Start the countdown
-      setTimer(5);
+      // Reset countdown and progress
+      setCountdown(duration);
+      setProgress(0);
       
-      const interval = setInterval(() => {
-        setTimer((prev) => {
-          if (prev <= 1) {
-            clearInterval(interval);
+      // Start the countdown
+      const intervalId = setInterval(() => {
+        setCountdown((prev) => {
+          const newValue = prev - 0.1;
+          if (newValue <= 0) {
+            clearInterval(intervalId);
             onClose();
             return 0;
           }
-          return prev - 1;
+          return newValue;
         });
-      }, 1000);
+        
+        setProgress((prev) => {
+          const newValue = prev + (100 / (duration * 10));
+          return newValue > 100 ? 100 : newValue;
+        });
+      }, 100);
       
-      return () => clearInterval(interval);
+      return () => clearInterval(intervalId);
     }
-  }, [showOverlay, onClose]);
+  }, [show, duration, onClose]);
   
-  if (!showOverlay) return null;
+  if (!show) return null;
+  
+  const overlayClasses = backgroundStyle !== "none" 
+    ? `fixed inset-0 z-50 flex flex-col items-center justify-center text-white focus-mode ${backgroundStyle}` 
+    : `fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center text-white`;
   
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center text-white"
+      className={overlayClasses}
     >
+      <div className="absolute top-4 right-4">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onClose}
+          className="text-white hover:bg-white/20"
+        >
+          <XCircle size={24} />
+        </Button>
+      </div>
+      
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
         className="text-center px-6 max-w-2xl"
       >
-        <h2 className="text-3xl sm:text-4xl font-bold mb-6">Entering Focus Mode</h2>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-8 gradient-text">Entering Focus Mode</h2>
         
-        <div className="text-xl sm:text-2xl italic mb-8 leading-relaxed">
+        <div className="text-xl sm:text-2xl italic mb-10 leading-relaxed glass-card p-6 rounded-lg">
           "{quote}"
         </div>
         
-        <p className="text-lg opacity-70 mb-8">
+        <p className="text-lg mb-8 text-white/80">
           Eliminate distractions and focus on your goals. 
           <br />
           You can exit focus mode at any time.
         </p>
         
-        <div className="text-lg">
-          <span className="opacity-70">Starting in </span>
-          <span className="font-bold">{timer}</span>
-          <span className="opacity-70"> seconds...</span>
+        <div className="w-full max-w-md mx-auto mb-8">
+          <Progress value={progress} className="h-2" />
+          <div className="text-sm text-white/60 mt-2 text-center">
+            Starting in {Math.ceil(countdown)} seconds...
+          </div>
         </div>
         
-        <button
+        <Button
           onClick={onClose}
-          className="mt-8 px-6 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition-colors"
+          variant="outline"
+          className="px-8 py-2 bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm"
         >
           Skip
-        </button>
+        </Button>
       </motion.div>
     </motion.div>
   );
